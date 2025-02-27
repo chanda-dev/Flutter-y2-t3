@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_y3_t2/w7-blablacar/screens/ride/ride_screen.dart';
+import 'package:flutter_y3_t2/w7-blablacar/utils/animations_util.dart';
 
 import '../../model/ride_pref/ride_pref.dart';
 import '../../service/ride_prefs_service.dart';
@@ -28,13 +30,6 @@ class RidePrefScreen extends StatefulWidget {
 class _RidePrefScreenState extends State<RidePrefScreen> {
   onRidePrefSelected(RidePref ridePref) {
     // 1 - Navigate to the rides screen (with a buttom to top animation)
-  }
-
-  void onGoTOTestScreen() {
-    setState(() {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const WidgetTest()));
-    });
   }
 
   @override
@@ -68,14 +63,6 @@ class _RidePrefScreenState extends State<RidePrefScreen> {
                     initRidePref: RidePrefService.currentRidePref,
                   ),
                   SizedBox(height: BlaSpacings.s),
-
-                  // 2.3 Test the BlaButton
-
-                  BlaButton(
-                    onUsed: onGoTOTestScreen,
-                    type: 'PRIMARY',
-                    text: 'Search',
-                  ),
 
                   // 2.2 Optionally display a list of past preferences
                   SizedBox(

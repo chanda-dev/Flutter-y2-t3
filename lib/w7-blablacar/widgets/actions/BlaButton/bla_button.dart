@@ -41,7 +41,7 @@ class BlaButton extends StatelessWidget {
       onPressed: onUsed,
       label: Text(
         text,
-        style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+        style: BlaTextStyles.button,
       ),
       icon: icon ?? const SizedBox(), // set when button do not contain icon
       style: ButtonStyle(

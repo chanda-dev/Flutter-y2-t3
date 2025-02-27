@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_y3_t2/w7-blablacar/model/ride/ride.dart';
 import 'package:flutter_y3_t2/w7-blablacar/screens/location/location_picker.dart';
+import 'package:flutter_y3_t2/w7-blablacar/screens/ride/ride_screen.dart';
+import 'package:flutter_y3_t2/w7-blablacar/service/rides_service.dart';
 import 'package:flutter_y3_t2/w7-blablacar/utils/date_time_util.dart';
+import 'package:flutter_y3_t2/w7-blablacar/widgets/actions/BlaButton/bla_button.dart';
 
 import '../../../model/ride/locations.dart';
 import '../../../model/ride_pref/ride_pref.dart';
 import '../../../widgets/display/bla_divider.dart';
 import '../../../widgets/display/bla_list_tile.dart';
+import '../../../utils/animations_util.dart';
 
 ///
 /// A Ride Preference From is a view to select:
@@ -38,6 +43,7 @@ class _RidePrefFormState extends State<RidePrefForm> {
   String? anotherTmp;
   late String formatDate = DateTimeUtils.formatDateTime(date);
   String peopleAmount = '1';
+  List<Ride> testRide = [];
   // ----------------------------------
   // Initialize the Form attributes
   // ----------------------------------
@@ -52,15 +58,11 @@ class _RidePrefFormState extends State<RidePrefForm> {
   // Handle events
   // ----------------------------------
 
-  // swap the destination between leaving from and going to
-
   void selectLocation(bool isDepature) async {
     final selectLocation = await Navigator.push(
         context,
-        MaterialPageRoute(
-            builder: (context) => LocationPicker(
-                  initialLocation: isDepature ? departure : arrival,
-                )));
+        AnimationUtils.createBottomToTopRoute(
+            LocationPicker(initialLocation: isDepature ? departure : arrival)));
     setState(() {
       if (selectLocation != null) {
         if (isDepature) {
@@ -74,6 +76,36 @@ class _RidePrefFormState extends State<RidePrefForm> {
     });
   }
 
+  void onGoToRideScreen() {
+    if (departure == null || arrival == null) {
+      return;
+    }
+    requestedSeats = int.parse(peopleAmount);
+    departureDate = date;
+    final ridePref = RidePref(
+        departure: departure!,
+        departureDate: departureDate,
+        arrival: arrival!,
+        requestedSeats: requestedSeats);
+
+    print("RidePref: departure=${departure}, arrival=${arrival}");
+    final availableRide = RidesService.getRidesFor(ridePref);
+
+    print("Found ${availableRide.length} available rides");
+    if (availableRide.isEmpty) {
+      Navigator.push(
+          context,
+          AnimationUtils.createBottomToTopRoute(
+              RideScreen(availableRide: testRide)));
+    } else {
+      Navigator.push(
+          context,
+          AnimationUtils.createBottomToTopRoute(
+              RideScreen(availableRide: availableRide)));
+    }
+  }
+
+// swap the destination between leaving from and going to
   void _handleSwapDirection() {
     setState(() {
       if (leavingFrom != "Leaving from" && goingTo != "Going to") {
@@ -143,6 +175,13 @@ class _RidePrefFormState extends State<RidePrefForm> {
             onClick: () {},
             text: peopleAmount,
             icon: Icon(Icons.person),
+          ),
+          // 2.3 Test the BlaButton
+
+          BlaButton(
+            onUsed: onGoToRideScreen,
+            type: 'PRIMARY',
+            text: 'Search',
           ),
         ]);
   }
