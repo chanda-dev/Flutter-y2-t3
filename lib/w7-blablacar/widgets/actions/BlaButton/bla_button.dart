@@ -3,8 +3,8 @@ import '/w7-blablacar/theme/theme.dart';
 
 class BlaButton extends StatelessWidget {
   final Icon? icon;
-  final VoidCallback onUsed;
-  final String type;
+  final VoidCallback onUsed; // to do some action
+  final String type; // set to know what type of button ( primary and secondary)
   final String text;
 
   const BlaButton({
@@ -27,9 +27,12 @@ class BlaButton extends StatelessWidget {
         ),
         icon: icon ?? const SizedBox(), // set when button do not contain icon
         style: ButtonStyle(
-          backgroundColor: WidgetStateProperty.all(BlaColors.primary),
-          foregroundColor: WidgetStateProperty.all(BlaColors.white),
-        ),
+            backgroundColor: WidgetStateProperty.all(BlaColors.primary),
+            foregroundColor: WidgetStateProperty.all(BlaColors.white),
+            shape: WidgetStateProperty.all(RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(BlaSpacings.radius),
+                    bottomRight: Radius.circular(BlaSpacings.radius))))),
       );
     }
 
@@ -46,7 +49,7 @@ class BlaButton extends StatelessWidget {
         foregroundColor: WidgetStateProperty.all(BlaColors.primary),
         shape: WidgetStateProperty.all(
           RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(BlaSpacings.radius),
             side: BorderSide(
               color: BlaColors.greyLight,
               width: 1,

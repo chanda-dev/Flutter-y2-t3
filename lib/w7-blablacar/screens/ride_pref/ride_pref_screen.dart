@@ -9,6 +9,8 @@ import 'widgets/ride_pref_history_tile.dart';
 
 import '../../widgets/actions/BlaButton/bla_button.dart';
 
+import '../../test/widget_test.dart';
+
 const String blablaHomeImagePath = 'assets/images/blabla_home.png';
 
 ///
@@ -26,6 +28,13 @@ class RidePrefScreen extends StatefulWidget {
 class _RidePrefScreenState extends State<RidePrefScreen> {
   onRidePrefSelected(RidePref ridePref) {
     // 1 - Navigate to the rides screen (with a buttom to top animation)
+  }
+
+  void onGoTOTestScreen() {
+    setState(() {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const WidgetTest()));
+    });
   }
 
   @override
@@ -58,7 +67,15 @@ class _RidePrefScreenState extends State<RidePrefScreen> {
                   RidePrefForm(
                     initRidePref: RidePrefService.currentRidePref,
                   ),
-                  SizedBox(height: BlaSpacings.m),
+                  SizedBox(height: BlaSpacings.s),
+
+                  // 2.3 Test the BlaButton
+
+                  BlaButton(
+                    onUsed: onGoTOTestScreen,
+                    type: 'PRIMARY',
+                    text: 'Search',
+                  ),
 
                   // 2.2 Optionally display a list of past preferences
                   SizedBox(
@@ -73,16 +90,6 @@ class _RidePrefScreenState extends State<RidePrefScreen> {
                             RidePrefService.ridePrefsHistory[index]),
                       ),
                     ),
-                  ),
-
-                  // 2.3 Test the BlaButton
-
-                  BlaButton(
-                    onUsed: () {
-                      // 1 - Navigate to the rides screen (with a buttom to top animation)
-                    },
-                    type: 'SECONDARY',
-                    text: 'Request to Book',
                   ),
                 ],
               ),
