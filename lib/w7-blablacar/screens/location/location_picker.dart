@@ -23,7 +23,7 @@ class _LocationPickerState extends State<LocationPicker> {
   void initState() {
     super.initState();
     if (widget.initialLocation != null) {
-      controller.text = widget.initialLocation!.name;
+      controller.text = widget.initialLocation!.name.toLowerCase();
     }
 
     controller.addListener(_updateTextState);

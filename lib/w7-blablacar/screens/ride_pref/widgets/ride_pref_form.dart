@@ -34,7 +34,8 @@ class _RidePrefFormState extends State<RidePrefForm> {
   String leavingFrom = 'Leaving from';
   String goingTo = 'Going to';
   late DateTime date = DateTime.now();
-  String? tmp;
+  Location? tmp;
+  String? anotherTmp;
   late String formatDate = DateTimeUtils.formatDateTime(date);
   String peopleAmount = '1';
   // ----------------------------------
@@ -53,22 +54,6 @@ class _RidePrefFormState extends State<RidePrefForm> {
 
   // swap the destination between leaving from and going to
 
-  void _handleSwapDirection() {
-    setState(() {
-      if (leavingFrom != "Leaving from" && goingTo != "Going to") {
-        tmp = leavingFrom;
-        leavingFrom = goingTo;
-        goingTo = tmp!;
-      } else if (leavingFrom != "Leaving from") {
-        goingTo = leavingFrom;
-        leavingFrom = 'Leaving from';
-      } else if (goingTo != "Going to") {
-        leavingFrom = goingTo;
-        goingTo = "Going to";
-      }
-    });
-  }
-
   void selectLocation(bool isDepature) async {
     final selectLocation = await Navigator.push(
         context,
@@ -85,6 +70,29 @@ class _RidePrefFormState extends State<RidePrefForm> {
           arrival = selectLocation;
           goingTo = arrival!.name;
         }
+      }
+    });
+  }
+
+  void _handleSwapDirection() {
+    setState(() {
+      if (leavingFrom != "Leaving from" && goingTo != "Going to") {
+        anotherTmp = leavingFrom;
+        leavingFrom = goingTo;
+        goingTo = anotherTmp!;
+        tmp = departure;
+        departure = arrival;
+        arrival = tmp!;
+      } else if (leavingFrom != "Leaving from") {
+        goingTo = leavingFrom;
+        leavingFrom = 'Leaving from';
+        arrival = departure;
+        departure = tmp;
+      } else if (goingTo != "Going to") {
+        leavingFrom = goingTo;
+        goingTo = "Going to";
+        departure = arrival;
+        arrival = tmp;
       }
     });
   }
