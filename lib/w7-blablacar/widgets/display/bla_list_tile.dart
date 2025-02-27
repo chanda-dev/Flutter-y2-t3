@@ -8,13 +8,14 @@ class BlaListTile extends StatelessWidget {
   final String?
       tileOrder; // to know the position of tile( first or second) to set the icon and traling conditionn on it
   final Icon icon;
-  const BlaListTile(
-      {super.key,
-      required this.onClick,
-      required this.text,
-      this.tileOrder,
-      required this.icon,
-      this.swapDirection});
+  const BlaListTile({
+    super.key,
+    required this.onClick,
+    required this.text,
+    this.tileOrder,
+    required this.icon,
+    this.swapDirection,
+  });
 
   @override
   Widget build(BuildContext context) {

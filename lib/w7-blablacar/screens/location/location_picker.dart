@@ -40,7 +40,8 @@ class _LocationPickerState extends State<LocationPicker> {
       hasText = controller.text.isNotEmpty;
 
       if (hasText == true && controller.text.length >= 2) {
-        fillterLocation = LocationsService.searchLocation(controller.text);
+        fillterLocation =
+            LocationsService.searchLocation(controller.text.toLowerCase());
       } else {
         fillterLocation = [];
       }

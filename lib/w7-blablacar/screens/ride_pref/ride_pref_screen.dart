@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_y3_t2/w7-blablacar/screens/ride/ride_screen.dart';
+import 'package:flutter_y3_t2/w7-blablacar/service/rides_service.dart';
 import 'package:flutter_y3_t2/w7-blablacar/utils/animations_util.dart';
 
 import '../../model/ride_pref/ride_pref.dart';
@@ -30,6 +31,14 @@ class RidePrefScreen extends StatefulWidget {
 class _RidePrefScreenState extends State<RidePrefScreen> {
   onRidePrefSelected(RidePref ridePref) {
     // 1 - Navigate to the rides screen (with a buttom to top animation)
+    final avalableRides = RidesService.getRidesFor(ridePref);
+
+    Navigator.push(
+        context,
+        AnimationUtils.createBottomToTopRoute(RideScreen(
+          ridePref: ridePref,
+          availableRide: avalableRides,
+        ))); // Pass an empty list or fetch actual rides based on ridePref
   }
 
   @override
