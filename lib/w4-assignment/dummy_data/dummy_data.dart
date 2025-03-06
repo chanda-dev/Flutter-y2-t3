@@ -1,3 +1,5 @@
+import 'package:flutter_y3_t2/w4-assignment/service/rides_service.dart';
+
 import '../model/ride/locations.dart';
 import '../model/ride/ride.dart';
 import '../model/ride_pref/ride_pref.dart';

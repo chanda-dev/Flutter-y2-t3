@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter_y3_t2/w4-assignment/repository/rides_repository.dart';
 
 import '../model/ride_pref/ride_pref.dart';
@@ -34,7 +32,12 @@ class RidesService {
   }
 
   List<Ride> getRides(RidePreference preference, RidesFilter? filter) {
-    return repository.getRides(preference, filter);
+    return repository.getRides(preference, filter).where((ride) {
+      if (filter != null && filter.acceptPets) {
+        return ride.acceptPets == true;
+      }
+      return true;
+    }).toList();
   }
 
   static List<Ride> availableRides = fakeRides;
