@@ -51,6 +51,7 @@ class _RideScreenState extends State<RideScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print('text${widget.ridePref}');
     return Scaffold(
       appBar: AppBar(
           toolbarHeight: 90,
@@ -78,31 +79,61 @@ class _RideScreenState extends State<RideScreen> {
           margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           elevation: 1,
           child: Padding(
-            padding: EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Departure City: ${widget.ridePref!.departure.name}',
-                ),
-                Text(
-                    'Departure Country: ${widget.ridePref!.departure.country.name}'),
-                Text(
-                    'Departure Time: ${DateTimeUtils.formatDateTime(widget.ridePref!.departureDate)}'),
-                Text(
-                  'Arrival City: ${widget.ridePref!.arrival.name}',
-                ),
-                Text(
-                    'Arrival Country: ${widget.ridePref!.arrival.country.name}'),
-                Text(
-                    'Arrival Time: ${DateTimeUtils.formatDateTime(widget.ridePref!.departureDate)}'),
-                Text('request seat: ${widget.ridePref!.requestedSeats}}',
-                    style: TextStyle(
-                      color: BlaColors.primary,
-                    )),
-              ],
-            ),
-          ),
+              padding: EdgeInsets.all(16),
+              child: Builder(builder: (context) {
+                if (widget.ridePref != null) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Departure City: ${widget.ridePref!.departure.name}',
+                      ),
+                      Text(
+                          'Departure Country: ${widget.ridePref!.departure.country.name}'),
+                      Text(
+                          'Departure Time: ${DateTimeUtils.formatDateTime(widget.ridePref!.departureDate)}'),
+                      Text(
+                        'Arrival City: ${widget.ridePref!.arrival.name}',
+                      ),
+                      Text(
+                          'Arrival Country: ${widget.ridePref!.arrival.country.name}'),
+                      Text(
+                          'Arrival Time: ${DateTimeUtils.formatDateTime(widget.ridePref!.departureDate)}'),
+                      Text('request seat: ${widget.ridePref!.requestedSeats}}',
+                          style: TextStyle(
+                            color: BlaColors.primary,
+                          )),
+                    ],
+                  );
+                } else if (widget.availableRide != null) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Departure City: ${widget.ridePref!.departure.name}',
+                      ),
+                      Text(
+                          'Departure Country: ${widget.ridePref!.departure.country.name}'),
+                      Text(
+                          'Departure Time: ${DateTimeUtils.formatDateTime(widget.ridePref!.departureDate)}'),
+                      Text(
+                        'Arrival City: ${widget.ridePref!.arrival.name}',
+                      ),
+                      Text(
+                          'Arrival Country: ${widget.ridePref!.arrival.country.name}'),
+                      Text(
+                          'Arrival Time: ${DateTimeUtils.formatDateTime(widget.ridePref!.departureDate)}'),
+                      Text('request seat: ${widget.ridePref!.requestedSeats}}',
+                          style: TextStyle(
+                            color: BlaColors.primary,
+                          )),
+                    ],
+                  );
+                }
+                return Center(
+                  child: Text("No avalable right"),
+                );
+              })),
         ),
       ),
     );

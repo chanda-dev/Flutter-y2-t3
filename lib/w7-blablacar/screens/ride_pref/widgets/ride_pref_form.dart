@@ -44,6 +44,7 @@ class _RidePrefFormState extends State<RidePrefForm> {
   late String formatDate = DateTimeUtils.formatDateTime(date);
   String peopleAmount = '1';
   List<Ride> testRide = [];
+  RidePref? ridePref;
   // ----------------------------------
   // Initialize the Form attributes
   // ----------------------------------
@@ -92,20 +93,24 @@ class _RidePrefFormState extends State<RidePrefForm> {
     final availableRide = RidesService.getRidesFor(ridePref);
 
     print("Found ${availableRide.length} available rides");
+    //final preRide = RidesService.getRidesFor(ridePref);
     if (availableRide.isEmpty) {
       Navigator.push(
           context,
           AnimationUtils.createBottomToTopRoute(
-              RideScreen(availableRide: testRide)));
+              RideScreen(availableRide: testRide, ridePref: ridePref)));
     } else {
       Navigator.push(
           context,
-          AnimationUtils.createBottomToTopRoute(
-              RideScreen(availableRide: availableRide)));
+          AnimationUtils.createBottomToTopRoute(RideScreen(
+            availableRide: availableRide,
+            ridePref: ridePref,
+          )));
     }
   }
 
 // swap the destination between leaving from and going to
+// this code is to much
   void _handleSwapDirection() {
     setState(() {
       if (leavingFrom != "Leaving from" && goingTo != "Going to") {

@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 import '/w7-blablacar/theme/theme.dart';
 
+// Note Teacher code //
+/*
+  for button type should create enum ButtonType {primary,secondary}
+  Color backgroundColor =
+        type == ButtonType.primary ? BlaColors.primary : BlaColors.white;
+        should set the condition for color icon border and textColor before start to build the button
+        after do this it will easy to write the button
+*/
 class BlaButton extends StatelessWidget {
   final Icon? icon;
   final VoidCallback onUsed; // to do some action
